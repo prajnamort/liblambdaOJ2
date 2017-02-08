@@ -23,3 +23,11 @@ struct task_result {
     long time_used;
     int mem_used;
 };
+
+void run_task_under_monitor(char* exe_file,
+                            char* input_file,
+                            char* output_file,
+                            int max_cpu_time_limit,
+                            int max_memory_limit,
+                            struct task_result* tr);
+
