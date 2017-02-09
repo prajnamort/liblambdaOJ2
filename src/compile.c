@@ -98,7 +98,8 @@ static void compile_term(int sig)
 static void c89_compile_handler(char* source_code, char* exe_file, char* err_log)
 {
     char *compile_cmd = "/usr/bin/gcc";
-    char *args[] = {"/usr/bin/gcc", "-std=c89", "-O2", "-w", "-lm", "-o",
+    char *args[] = {"/usr/bin/gcc", "-std=c89", "-static",
+                    "-O2", "-w", "-lm", "-o",
                     exe_file, source_code, NULL};
     compile_code(compile_cmd, args, err_log, MAX_COMPILE_TIME);
 }
@@ -106,7 +107,8 @@ static void c89_compile_handler(char* source_code, char* exe_file, char* err_log
 static void c99_compile_handler(char* source_code, char* exe_file, char* err_log)
 {
     char *compile_cmd = "/usr/bin/gcc";
-    char *args[] = {"/usr/bin/gcc", "-std=c99", "-O2", "-w", "-lm", "-o",
+    char *args[] = {"/usr/bin/gcc", "-std=c99", "-static",
+                    "-O2", "-w", "-lm", "-o",
                     exe_file, source_code, NULL};
     compile_code(compile_cmd, args, err_log, MAX_COMPILE_TIME);
 }
@@ -114,7 +116,8 @@ static void c99_compile_handler(char* source_code, char* exe_file, char* err_log
 static void c11_compile_handler(char* source_code, char* exe_file, char* err_log)
 {
     char *compile_cmd = "/usr/bin/gcc";
-    char *args[] = {"/usr/bin/gcc", "-std=c11", "-O2", "-w", "-lm", "-o",
+    char *args[] = {"/usr/bin/gcc", "-std=c11", "-static",
+                    "-O2", "-w", "-lm", "-o",
                     exe_file, source_code, NULL};
     compile_code(compile_cmd, args, err_log, MAX_COMPILE_TIME);
 }
@@ -122,7 +125,8 @@ static void c11_compile_handler(char* source_code, char* exe_file, char* err_log
 static void cpp03_compile_handler(char* source_code, char* exe_file, char* err_log)
 {
     char *compile_cmd = "/usr/bin/g++";
-    char *args[] = {"/usr/bin/g++", "-std=c++03", "-O2", "-w", "-lm", "-o",
+    char *args[] = {"/usr/bin/g++", "-std=c++03", "-static",
+                    "-O2", "-w", "-lm", "-o",
                     exe_file, source_code, NULL};
     compile_code(compile_cmd, args, err_log, MAX_COMPILE_TIME);
 }
@@ -130,7 +134,8 @@ static void cpp03_compile_handler(char* source_code, char* exe_file, char* err_l
 static void cpp11_compile_handler(char* source_code, char* exe_file, char* err_log)
 {
     char *compile_cmd = "/usr/bin/g++";
-    char *args[] = {"/usr/bin/g++", "-std=c++11", "-O2", "-w", "-lm", "-o",
+    char *args[] = {"/usr/bin/g++", "-std=c++11", "-static",
+                    "-O2", "-w", "-lm", "-o",
                     exe_file, source_code, NULL};
     compile_code(compile_cmd, args, err_log, MAX_COMPILE_TIME);
 }

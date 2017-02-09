@@ -95,7 +95,6 @@ void run_task_under_monitor(char* exe_file,
                     } else {
                         ptrace(PTRACE_GETREGS, pid, NULL, &context.regs);
                         int syscall_number = context.regs.orig_rax;
-                        printf("%d\n", syscall_number);
                         if (!is_safe(syscall_number)) {
                             kill(pid, SIGKILL);
                             wait(NULL);
