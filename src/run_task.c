@@ -24,6 +24,8 @@ static long get_cost_time(struct rusage* usage);
 
 static void handle_normal_exit(struct task_result*, int);
 
+static int SYSCALL_BLACK_LIST[329]={0}; //if SYSCALL_BLACK_LIST[syscall_id] = 0 means safe
+
 
 void run_task_under_monitor(char* exe_file,
                             char* input_file,
@@ -164,7 +166,7 @@ static void set_virtual_mem_limit(int max_virtual_mem_limit)
 
 static int is_safe(int syscall_number)
 {
-    return 1;
+    return SYSCALL_BLACK_LIST[syscall_number] == 0;
 }
 
 static long convert2ms(struct timeval *tv)

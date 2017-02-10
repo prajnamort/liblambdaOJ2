@@ -7,4 +7,7 @@
 #define MAX_COMPILE_TIME 6
 
 
-int compile(char*, char*, int, char*);
+int compile(char *source_code,
+            char *exe_file,
+            int compiler,
+            char *err_log);
