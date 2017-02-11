@@ -4,3 +4,6 @@ a.out
 *.pyc
 *.db
 *.bak
+
+build/*
+local/*
