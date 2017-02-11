@@ -27,12 +27,12 @@ static void handle_normal_exit(struct task_result*, int);
 static int SYSCALL_BLACK_LIST[329]={0}; //if SYSCALL_BLACK_LIST[syscall_id] = 0 means safe
 
 
-void run_task_under_monitor(char* exe_file,
-                            char* input_file,
-                            char* output_file,
-                            int max_cpu_time_limit,
-                            int max_memory_limit,
-                            struct task_result* tr)
+void run_task(char* exe_file,
+              char* input_file,
+              char* output_file,
+              int max_cpu_time_limit,
+              int max_memory_limit,
+              struct task_result* tr)
 {
     pid_t pid;
 
@@ -185,12 +185,14 @@ static void handle_normal_exit(struct task_result* tr, int mem_limit)
 {
     struct rusage usage ;
     getrusage(RUSAGE_CHILDREN, &usage) ;
-    int mem = usage.ru_maxrss;
+
+    long mem = usage.ru_maxrss;
     if (mem > mem_limit) {
         tr->final_result = TASK_MEMORY_LIMIT_EXCEEDED;
         return;
     }
-    int time = get_cost_time(&usage);
+
+    long time = get_cost_time(&usage);
 
     tr->mem_used = mem;
     tr->time_used = time;
