@@ -1,15 +1,10 @@
-from ctypes import CDLL, pointer, c_int, c_long, c_char_p, Structure
 import os
+import subprocess
 from abc import ABCMeta, abstractmethod
+from ctypes import CDLL, pointer, c_int, c_long, c_char_p
 
 from .consts import (COMPILERS, COMPILE_OK, COMPILE_ERROR, MAX_ERROR_MSG_LENGTH,
                      ACCEPTED, WRONG_ANSWER, TASK_STATUS, TASK_ALL_NORMAL)
-
-
-class TaskResult(Structure):
-    _fields_ = [("final_result", c_int),
-                ("time_used", c_long),
-                ("mem_used", c_long)]
 
 
 class Judge(metaclass=ABCMeta):
@@ -52,7 +47,6 @@ class Judge(metaclass=ABCMeta):
 
         clib_lambdaOj2 = CDLL("liblambdaOJ2.so")
         self.compile_func = clib_lambdaOj2.compile
-        self.run_task_func = clib_lambdaOj2.run_task
 
     def str_to_char_p(self, s):
         return c_char_p(bytes(s, "utf-8"))
@@ -127,22 +121,22 @@ class Judge(metaclass=ABCMeta):
         time_limit = self.json_obj.get("time_limie", 1)
         mem_limit = self.json_obj.get("mem_limit", 1024*20)
 
-        tr = TaskResult()
+        judge_exe = self.json_obj.get("judge_exe")
 
-        self.run_task_func(self.str_to_char_p(exe_file),
-                           self.str_to_char_p(test_input),
-                           self.str_to_char_p(sample_output),
-                           c_int(time_limit),
-                           c_int(mem_limit),
-                           pointer(tr))
+        proc = subprocess.Popen([judge_exe, exe_file, test_input, sample_output,
+                                 str(time_limit), str(mem_limit)],
+                                stdout=subprocess.PIPE)
 
+        proc.wait()
+        result = proc.communicate()[0].decode("utf8")
+        final_result, time_used, mem_used = [int(s) for s in result.split(',')]
 
-        if tr.final_result == TASK_ALL_NORMAL:
+        if final_result == TASK_ALL_NORMAL:
             std_answer = self.get_std_answer_by_id(id)
             if self.check_answer(std_answer, sample_output):
-                return (ACCEPTED, tr.time_used, tr.mem_used)
+                return (ACCEPTED, time_used, mem_used)
             else:
                 return (WRONG_ANSWER, 0, 0)
         else:
-            status = TASK_STATUS.get(tr.final_result, -1)
+            status = TASK_STATUS.get(final_result, -1)
             return (status, 0, 0)
