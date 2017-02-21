@@ -33,3 +33,7 @@ Or use pip:
 ```bash
 pip install "git+https://github.com/kainwen/lambdaOJ2@master#egg=lambdaOJ2&subdirectory=python_package"
 ```
+
+### Docs
+
+Docs can be found [here](doc/lambdaOJ2.md).
