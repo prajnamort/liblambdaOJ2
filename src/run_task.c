@@ -24,7 +24,20 @@ static long get_cost_time(struct rusage* usage);
 
 static void handle_normal_exit(struct task_result*, int);
 
-static int SYSCALL_BLACK_LIST[329]={0}; //if SYSCALL_BLACK_LIST[syscall_id] = 0 means safe
+//if SYSCALL_BLACK_LIST[syscall_id] = 0 means safe
+static int SYSCALL_BLACK_LIST[329] = {
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+};
 
 
 void run_task(char* exe_file,
@@ -108,6 +121,11 @@ void run_task(char* exe_file,
                     ptrace(PTRACE_SYSCALL,pid,NULL,NULL);
                     continue;
                 }
+                //stopped by other signal
+                kill(pid, SIGKILL);
+                wait(NULL);
+                child_end_state = CHILD_END_STOP_BY_OTHER_SIGNAL;
+                break;
             };
             //child term by other signal
             if (WIFSIGNALED(status)) {
@@ -131,6 +149,7 @@ void run_task(char* exe_file,
         case CHILD_END_BAD_SYSCALL:
             tr->final_result = TASK_BAD_SYSCALL;
             break;
+        case CHILD_END_STOP_BY_OTHER_SIGNAL:
         case CHILD_END_TERM_BY_SIGNAL:
             tr->final_result = TASK_RUN_TIME_ERROR;
             break;

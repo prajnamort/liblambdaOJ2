@@ -8,6 +8,7 @@
 #define CHILD_END_CPU_TIME_EXCEEDED     2
 #define CHILD_END_BAD_SYSCALL           4
 #define CHILD_END_TERM_BY_SIGNAL        8
+#define CHILD_END_STOP_BY_OTHER_SIGNAL  16
 
 #define TASK_ALL_NORMAL                 0
 #define TASK_TIME_LIMIT_EXCEEDED        1
