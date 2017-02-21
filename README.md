@@ -31,5 +31,5 @@ python3 setup.py install --prefix=/your/path/to/install/
 Or use pip:
 
 ```bash
-pip3 install -e /path/to/lambdaOJ/python-package
+pip install "git+https://github.com/kainwen/lambdaOJ2@master#egg=lambdaOJ2&subdirectory=python_package"
 ```
