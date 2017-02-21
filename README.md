@@ -1,5 +1,5 @@
-lambdaOJ2
-=========
+lambdaOJ2 [![Build Status](https://travis-ci.org/kainwen/lambdaOJ2.svg?branch=master)](https://travis-ci.org/kainwen/lambdaOJ2)
+=============================================
 
 lambdaOJ2 is the platform for the course **Data Structure** in EE of Thu.
 

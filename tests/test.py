@@ -11,6 +11,8 @@ INPUT_DIR = os.path.join(TEST_CASE_DIR, "input")
 STD_DIR = os.path.join(TEST_CASE_DIR, "std")
 SRC_DIR = os.path.join(TEST_CASE_DIR, "src")
 
+JUDGE_DIR = os.getenv("JUDGE_DIR")
+
 
 def take_care_of_tmp(d):
     def dct(f):
@@ -47,7 +49,7 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_ac(self):
-        jd = MyJudge(judge_exe=os.path.join(os.getcwd(), "judge"),
+        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -62,7 +64,7 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_ce(self):
-        jd = MyJudge(judge_exe=os.path.join(os.getcwd(), "judge"),
+        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -75,7 +77,7 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_wa(self):
-        jd = MyJudge(judge_exe=os.path.join(os.getcwd(), "judge"),
+        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -91,7 +93,7 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_tle(self):
-        jd = MyJudge(judge_exe=os.path.join(os.getcwd(), "judge"),
+        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -107,7 +109,7 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_mle(self):
-        jd = MyJudge(judge_exe=os.path.join(os.getcwd(), "judge"),
+        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -123,7 +125,7 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_ole(self):
-        jd = MyJudge(judge_exe=os.path.join(os.getcwd(), "judge"),
+        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -139,7 +141,7 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_bad_syscall(self):
-        jd = MyJudge(judge_exe=os.path.join(os.getcwd(), "judge"),
+        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -155,7 +157,7 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_re(self):
-        jd = MyJudge(judge_exe=os.path.join(os.getcwd(), "judge"),
+        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -171,7 +173,7 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_re(self):
-        jd = MyJudge(judge_exe=os.path.join(os.getcwd(), "judge"),
+        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -187,5 +189,4 @@ class TestStringMethods(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    os.chdir(TEST_CASE_DIR)
     unittest.main()
