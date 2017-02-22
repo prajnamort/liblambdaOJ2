@@ -50,9 +50,9 @@ final_result(macros in `run_task.h`) | Comments
 `TASK_TIME_LIMIT_EXCEEDED` | failed becauase of TLE
 `TASK_MEMORY_LIMIT_EXCEEDED`| failed becauase of MLE
 `TASK_OUTPUT_LIMIT_EXCEEDED`| failed becauase of OLE
-`define TASK_BAD_SYSCALL`| failed because of invoking unsafe system call
-`define TASK_RUN_TIME_ERROR`| failed because of runtime error
-`define TASK_UNKNOWN_RESULT`| failed because of unknown reason
+`TASK_BAD_SYSCALL`| failed because of invoking unsafe system call
+`TASK_RUN_TIME_ERROR`| failed because of runtime error
+`TASK_UNKNOWN_RESULT`| failed because of unknown reason
 
 --------------------------------------------------------------
 
