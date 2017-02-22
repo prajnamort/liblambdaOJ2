@@ -25,7 +25,7 @@ static long get_cost_time(struct rusage* usage);
 static void handle_normal_exit(struct task_result*, int);
 
 //if SYSCALL_BLACK_LIST[syscall_id] = 0 means safe
-static int SYSCALL_BLACK_LIST[329] = {
+static const int SYSCALL_BLACK_LIST[329] = {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

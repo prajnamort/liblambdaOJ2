@@ -16,6 +16,8 @@ LambdaOJ2 uses rlimit to control program resource(cputime, virtual memory, outpu
 
 The kernel part takes the charge of compiling code, and running the code under monitoring with limited resources.
 
+### C API
+
 The `liblambdaOJ.so` provide two functons as API:
 * `int compile(char *source_code, char* exe_file, int compiler, char* err_log)`
   + `source_code`: the full path of the code need to be test
@@ -54,7 +56,16 @@ final_result(macros in `run_task.h`) | Comments
 `TASK_RUN_TIME_ERROR`| failed because of runtime error
 `TASK_UNKNOWN_RESULT`| failed because of unknown reason
 
---------------------------------------------------------------
+### Syscall blacklist
+
+The syscall blacklist is defined in `run_task.c`. Since lambdaOJ2 only works under linux 64bit system, it is defined as `int SYSCALL_BLACK_LIST[329]`.
+
+* `int SYSCALL_BLACK_LIST[i] == 0` means the syscall is safe
+* `int SYSCALL_BLACK_LIST[i] == 1` means the syscall is banned
+
+If you can modify this list,  you have to recompile the project.
+
+### judge
 
 `judge` is the executable program provided by the kernel. It use `run_task` to test a program, and print the result to stdout. `judge` takes five command line arguments, shown below:
 
