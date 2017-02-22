@@ -1,7 +1,6 @@
 #!/bin/bash
 
 compile_c_code () {
-	rm build venv local -rf
     mkdir build; cd build;
     cmake -DCMAKE_INSTALL_PREFIX=../local ..;
     make;
