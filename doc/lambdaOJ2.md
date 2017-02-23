@@ -135,6 +135,10 @@ task_status(defined in lambdaOJ2.consts) | comments
 `RUN_TIME_ERROR`|runtime error
 `UNKNOWN_RESULT`| others
 
+### Runtime Process Relationship Graph
+
+![Process Relationship Graph](process_relationship.jpg)
+
 ## Example
 
 Please refer [tests/test.py](https://github.com/kainwen/lambdaOJ2/blob/master/tests/test.py).
