@@ -1,3 +1,6 @@
+#include <unistd.h>
+#include <sys/types.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,6 +19,10 @@ int main(int argc, char *argv[])
 
     int time_limit = atoi(argv[4]);
     int mem_limit = atoi(argv[5]);
+
+    //create a new process group
+    pid_t pid = getpid();
+    setpgid(pid, pid);
 
     struct task_result tr;
     run_task(exe_file, input_file, output_file, time_limit, mem_limit, &tr);

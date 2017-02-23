@@ -1,4 +1,5 @@
 import os
+import signal
 import subprocess
 from abc import ABCMeta, abstractmethod
 from ctypes import CDLL, c_int, c_char_p
@@ -112,11 +113,11 @@ class Judge(metaclass=ABCMeta):
             result = proc.communicate(timeout=3*int(self.time_limit))[0].decode("utf8")
             final_result, time_used, mem_used = [int(s) for s in result.split(',')]
         except subprocess.TimeoutExpired:
-            proc.kill()
+            os.killpg(proc.pid, signal.SIGKILL)
             proc.wait()
             raise NeedRejudgeError("Timeout for communicating")
         except:
-            proc.kill()
+            os.killpg(proc.pid, signal.SIGKILL)
             proc.wait()
             raise NeedRejudgeError("Other Reasons")
 
