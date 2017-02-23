@@ -73,7 +73,7 @@ void compile_code(char *compile_cmd,
         sleep(max_compile_time);
         signal(SIGCHLD,SIG_DFL);
         kill(-pid, SIGKILL);
-        while (waitpid(-1,0,WNOHANG) > 0);
+		wait(NULL);
 
         log_to_file(err_file, "compile error!");
         return ;

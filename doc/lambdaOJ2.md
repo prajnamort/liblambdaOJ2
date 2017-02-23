@@ -135,6 +135,8 @@ task_status(defined in lambdaOJ2.consts) | comments
 `RUN_TIME_ERROR`|runtime error
 `UNKNOWN_RESULT`| others
 
+`Judge.run()` will rasie an `NeedRejudgeError` exception when there are something wrong with the `judge` process.
+
 ### Runtime Process Relationship Graph
 
 ![Process Relationship Graph](process_relationship.jpg)

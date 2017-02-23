@@ -108,9 +108,17 @@ class Judge(metaclass=ABCMeta):
                                  self.time_limit, self.mem_limit],
                                 stdout=subprocess.PIPE)
 
-        proc.wait()
-        result = proc.communicate()[0].decode("utf8")
-        final_result, time_used, mem_used = [int(s) for s in result.split(',')]
+        try:
+            result = proc.communicate(timeout=3*int(self.time_limit))[0].decode("utf8")
+            final_result, time_used, mem_used = [int(s) for s in result.split(',')]
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait()
+            raise NeedRejudgeError("Timeout for communicating")
+        except:
+            proc.kill()
+            proc.wait()
+            raise NeedRejudgeError("Other Reasons")
 
         if final_result == TASK_ALL_NORMAL:
             std_answer = self.get_std_answer_by_id(id)
@@ -121,3 +129,13 @@ class Judge(metaclass=ABCMeta):
         else:
             status = TASK_STATUS.get(final_result, -1)
             return (status, 0, 0)
+
+
+class NeedRejudgeError(Exception):
+    """
+    Errors happend when read the stdout from judge process or
+    when parsing the stdout from judge.
+    """
+
+    def __init__(self, message):
+        self.message = message
