@@ -12,6 +12,7 @@
 
 
 static sigjmp_buf buf ;
+static pid_t child_pgid;
 
 static void log_to_file(char*, char*);
 static void compile_term(int);
@@ -64,16 +65,18 @@ void compile_code(char *compile_cmd,
     if (sigsetjmp(buf,1)==0) {
         pid = fork();
         if (pid == 0) {
-            setpgid(pid, pid);
+            setpgid(0, getpid());
             freopen(err_file, "w", stderr);
             execv(compile_cmd, compile_args);
             exit(0);
         }
 
+        child_pgid = pid;
+
         sleep(max_compile_time);
         signal(SIGCHLD,SIG_DFL);
         kill(-pid, SIGKILL);
-		wait(NULL);
+        wait(NULL);
 
         log_to_file(err_file, "compile error!");
         return ;
@@ -90,7 +93,8 @@ static void log_to_file(char *file_path, char *msg)
 static void compile_term(int sig)
 {
     signal(SIGCHLD, SIG_DFL);
-    while (waitpid(-1, 0, WNOHANG) > 0);
+    kill(-child_pgid, SIGKILL);
+    wait(NULL);
     siglongjmp(buf,1);
 }
 
