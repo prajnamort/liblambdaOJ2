@@ -16,6 +16,30 @@ LambdaOJ2 uses rlimit to control program resource(cputime, virtual memory, outpu
 
 The kernel part takes the charge of compiling code, and running the code under monitoring with limited resources.
 
+### Syscall White List
+
+Allowed syscall table:
+
+Syscall Id | Syscall Name
+-------------|-----------
+0            | `sys_read`
+1            | `sys_write`
+3            | `sys_close`
+5            | `sys_fstat`
+8            | `sys_lseek`
+9            | `sys_mmap`
+11           | `sys_munmap`
+12           | `sys_brk`
+20           | `sys_writev`
+21           | `sys_access`
+60           | `sys_exit`
+63           | `sys_uname`
+89           | `sys_readlink`
+158          | `sys_arch_prctl`
+201          | `sys_time`
+231          | `sys_exit_group`
+
+
 ### C API
 
 The `liblambdaOJ.so` provide two functons as API:

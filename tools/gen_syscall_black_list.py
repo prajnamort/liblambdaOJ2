@@ -15,7 +15,7 @@ def make_line(loi):
     return "  " + ",".join([str(i) for i in loi])
 
 def get_element_lines(syscall_black_list, step=30):
-    return "\n".join([make_line(syscall_black_list[i:i+step])
+    return ",\n".join([make_line(syscall_black_list[i:i+step])
                       for i in islice(range(329), 0, None, step)])
 
 def load_from_file(fn, is_black_list=True):
