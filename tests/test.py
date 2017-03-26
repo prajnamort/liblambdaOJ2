@@ -4,7 +4,7 @@ import os
 import unittest
 import shutil
 
-from lambdaOJ2 import Judge
+from oj import Judge
 
 
 TEST_CASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
