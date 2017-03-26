@@ -13,7 +13,7 @@ INPUT_DIR = os.path.join(TEST_CASE_DIR, "input")
 STD_DIR = os.path.join(TEST_CASE_DIR, "std")
 SRC_DIR = os.path.join(TEST_CASE_DIR, "src")
 
-JUDGE_DIR = os.getenv("JUDGE_DIR")
+BIN_DIR = os.path.join(os.getenv("VIRTUAL_ENV"), "bin")
 
 
 def take_care_of_tmp(d):
@@ -51,7 +51,8 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_ac(self):
-        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
+        jd = MyJudge(judge_exe=os.path.join(BIN_DIR, "judge"),
+                     compile_code_exe=os.path.join(BIN_DIR, "compile_code"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -66,7 +67,8 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_ce(self):
-        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
+        jd = MyJudge(judge_exe=os.path.join(BIN_DIR, "judge"),
+                     compile_code_exe=os.path.join(BIN_DIR, "compile_code"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -79,7 +81,8 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_wa(self):
-        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
+        jd = MyJudge(judge_exe=os.path.join(BIN_DIR, "judge"),
+                     compile_code_exe=os.path.join(BIN_DIR, "compile_code"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -95,7 +98,8 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_tle(self):
-        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
+        jd = MyJudge(judge_exe=os.path.join(BIN_DIR, "judge"),
+                     compile_code_exe=os.path.join(BIN_DIR, "compile_code"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -111,7 +115,8 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_mle(self):
-        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
+        jd = MyJudge(judge_exe=os.path.join(BIN_DIR, "judge"),
+                     compile_code_exe=os.path.join(BIN_DIR, "compile_code"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -127,7 +132,8 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_ole(self):
-        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
+        jd = MyJudge(judge_exe=os.path.join(BIN_DIR, "judge"),
+                     compile_code_exe=os.path.join(BIN_DIR, "compile_code"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -143,7 +149,8 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_bad_syscall(self):
-        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
+        jd = MyJudge(judge_exe=os.path.join(BIN_DIR, "judge"),
+                     compile_code_exe=os.path.join(BIN_DIR, "compile_code"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -159,7 +166,8 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_re(self):
-        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
+        jd = MyJudge(judge_exe=os.path.join(BIN_DIR, "judge"),
+                     compile_code_exe=os.path.join(BIN_DIR, "compile_code"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",
@@ -175,7 +183,8 @@ class TestStringMethods(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_re(self):
-        jd = MyJudge(judge_exe=os.path.join(JUDGE_DIR, "judge"),
+        jd = MyJudge(judge_exe=os.path.join(BIN_DIR, "judge"),
+                     compile_code_exe=os.path.join(BIN_DIR, "compile_code"),
                      problem_id="1",
                      work_dir=os.path.join(TEST_CASE_DIR, "tmp"),
                      compiler_name="c89",

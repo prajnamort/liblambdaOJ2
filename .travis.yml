@@ -1,6 +1,6 @@
 os: linux
 language: python
-python: "3.5"
+python: "3.4"
 
 install: source tests/build_test_env.sh
 script: source tests/run.sh
