@@ -11,12 +11,17 @@
 #include "compile.h"
 
 
-static sigjmp_buf buf ;
-static pid_t child_pgid;
+volatile sig_atomic_t compile_result;
+
 
 static void log_to_file(char*, char*);
 static void compile_term(int);
+static void time_up(int);
 static int file_size(char *);
+
+static void set_sig_action_for_chld();
+static void set_sig_action_for_alarm();
+static void block_sig(int);
 
 static void c89_compile_handler(char*, char*, char*);
 static void c99_compile_handler(char*, char*, char*);
@@ -54,33 +59,66 @@ int compile(char *source_code,
         return -1;
 }
 
+static void set_sig_action_for_chld()
+{
+    struct sigaction act;
+    act.sa_handler = compile_term;
+    sigemptyset(&act.sa_mask);
+    sigaddset(&act.sa_mask, SIGALRM);
+    sigaction(SIGCHLD, &act, NULL);
+}
+
+static void set_sig_action_for_alarm()
+{
+    struct sigaction act;
+    act.sa_handler = time_up;
+    sigemptyset(&act.sa_mask);
+    sigaddset(&act.sa_mask, SIGCHLD);
+    sigaction(SIGALRM, &act, NULL);
+}
+
 void compile_code(char *compile_cmd,
                   char *compile_args[],
                   char *err_file,
                   int max_compile_time)
 {
-    signal(SIGCHLD, compile_term);
+    /* first block SIGCHLD and SIGALRM*/
+    sigset_t new_mask, old_mask;
+    sigemptyset(&new_mask);
+    sigaddset(&new_mask, SIGCHLD);
+    sigaddset(&new_mask, SIGALRM);
+    sigprocmask(SIG_BLOCK, &new_mask, &old_mask);
+
+    set_sig_action_for_chld();
+    set_sig_action_for_alarm();
+
     pid_t pid;
+    pid = fork();
+    if (pid == 0) {
+        setpgid(0, getpid());
+        freopen(err_file, "w", stderr);
+        execv(compile_cmd, compile_args);
+        exit(0);
+    }
 
-    if (sigsetjmp(buf,1)==0) {
-        pid = fork();
-        if (pid == 0) {
-            setpgid(0, getpid());
-            freopen(err_file, "w", stderr);
-            execv(compile_cmd, compile_args);
-            exit(0);
-        }
+    /* max_compile_time > 0 */
+    alarm(max_compile_time);
 
-        child_pgid = pid;
+    sigsuspend(&old_mask);
 
-        sleep(max_compile_time);
-        signal(SIGCHLD,SIG_DFL);
+    if (compile_result == TIME_UP) {
+        log_to_file(err_file, "compile error!");
         kill(-pid, SIGKILL);
         wait(NULL);
-
-        log_to_file(err_file, "compile error!");
-        return ;
     }
+}
+
+static void block_sig(int signo)
+{
+    sigset_t m;
+    sigemptyset(&m);
+    sigaddset(&m, signo);
+    sigprocmask(SIG_BLOCK, &m, NULL);
 }
 
 static void log_to_file(char *file_path, char *msg)
@@ -92,12 +130,15 @@ static void log_to_file(char *file_path, char *msg)
 
 static void compile_term(int sig)
 {
-    signal(SIGCHLD, SIG_DFL);
-    kill(-child_pgid, SIGKILL);
-    wait(NULL);
-    siglongjmp(buf,1);
+    compile_result = NOT_TIME_UP;
+    block_sig(SIGALRM);
 }
 
+static void time_up(int sig)
+{
+    compile_result = TIME_UP;
+    block_sig(SIGCHLD);
+}
 
 static void c89_compile_handler(char* source_code, char* exe_file, char* err_log)
 {

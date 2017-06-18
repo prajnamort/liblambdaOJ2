@@ -6,6 +6,9 @@
 
 #define MAX_COMPILE_TIME 6
 
+#define NOT_TIME_UP 0
+#define TIME_UP 1
+
 
 int compile(char *source_code,
             char *exe_file,
