@@ -96,6 +96,7 @@ void compile_code(char *compile_cmd,
     pid = fork();
     if (pid == 0) {
         setpgid(0, getpid());
+        sigprocmask(SIG_SETMASK, &old_mask, NULL);
         freopen(err_file, "w", stderr);
         execv(compile_cmd, compile_args);
         exit(0);

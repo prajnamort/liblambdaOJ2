@@ -129,7 +129,7 @@ void run_task(char* exe_file,
             };
             //child term by other signal
             if (WIFSIGNALED(status)) {
-                kill(pid, SIGKILL) ;
+                kill(pid, SIGKILL);
                 wait(NULL);
                 child_end_state = CHILD_END_TERM_BY_SIGNAL;
                 break;
