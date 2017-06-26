@@ -114,14 +114,6 @@ void compile_code(char *compile_cmd,
     }
 }
 
-static void block_sig(int signo)
-{
-    sigset_t m;
-    sigemptyset(&m);
-    sigaddset(&m, signo);
-    sigprocmask(SIG_BLOCK, &m, NULL);
-}
-
 static void log_to_file(char *file_path, char *msg)
 {
     FILE* f = fopen(file_path, "w");
@@ -132,13 +124,11 @@ static void log_to_file(char *file_path, char *msg)
 static void compile_term(int sig)
 {
     compile_result = NOT_TIME_UP;
-    block_sig(SIGALRM);
 }
 
 static void time_up(int sig)
 {
     compile_result = TIME_UP;
-    block_sig(SIGCHLD);
 }
 
 static void c89_compile_handler(char* source_code, char* exe_file, char* err_log)
