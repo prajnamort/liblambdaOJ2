@@ -1,4 +1,4 @@
-lambdaOJ2 [![Build Status](https://travis-ci.org/kainwen/liblambdaOJ2.svg?branch=master)](https://travis-ci.org/kainwen/liblambdaOJ2)
+liblambdaOJ2 [![Build Status](https://travis-ci.org/kainwen/liblambdaOJ2.svg?branch=master)](https://travis-ci.org/kainwen/liblambdaOJ2)
 =============================================
 
 lambdaOJ2 is the platform for the course **Data Structure** in EE of Thu.
@@ -9,9 +9,9 @@ lambdaOJ2 is the platform for the course **Data Structure** in EE of Thu.
 ### Compile
 
 ```bash
-cd lambdaOJ2
+cd liblambdaOJ2
 mkdir build; cd build
-cmake -DCMAKE_INSTALL_PREFIX=/your/path/to/install/
+cmake -DCMAKE_INSTALL_PREFIX=/your/path/to/install/ ..
 make
 make install
 ```
@@ -20,8 +20,7 @@ make install
 
 Make sure:
 
-* `liblambdaOJ2.so` is in `$LD_LIBRARY_PATH`
-* `judge` is in `$PATH`
+* `judge` and `compile_code` is in `$PATH`
 
 ```bash
 cd liblambdaOJ2/python_package
