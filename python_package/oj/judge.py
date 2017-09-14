@@ -79,7 +79,7 @@ class Judge(metaclass=ABCMeta):
 
     def try_decode(self, data):
         try:
-            s = data.decode("utf-8")
+            s = data.decode("utf-8").replace('\x00', '')
         except:
             s= ""
         return s

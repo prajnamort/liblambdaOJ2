@@ -7,4 +7,6 @@ install_python () {
     cd ..
 }
 
+export INSTALL_PREFIX=/tmp
+mkdir /tmp/bin
 install_python;

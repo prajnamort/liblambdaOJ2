@@ -9,7 +9,6 @@ import subprocess
 
 
 class CMakeCommand(build):
-    """A custom command to compile liblambdaoj2.so."""
 
     def run(self):
         cwd = os.getcwd()
@@ -22,7 +21,7 @@ class CMakeCommand(build):
         os.mkdir(build_dir)
         os.chdir(build_dir)
 
-        cmake_install_prefix = os.getenv("VIRTUAL_ENV")
+        cmake_install_prefix = os.getenv("INSTALL_PREFIX")
         proc = subprocess.Popen(["cmake",
                                  "-DCMAKE_INSTALL_PREFIX=%s" % cmake_install_prefix,
                                  ".."])

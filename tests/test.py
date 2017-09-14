@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import unittest
 import shutil
 
@@ -12,8 +13,7 @@ TEST_CASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 INPUT_DIR = os.path.join(TEST_CASE_DIR, "input")
 STD_DIR = os.path.join(TEST_CASE_DIR, "std")
 SRC_DIR = os.path.join(TEST_CASE_DIR, "src")
-
-BIN_DIR = os.path.join(os.getenv("VIRTUAL_ENV"), "bin")
+BIN_DIR = os.getenv("BIN_DIR")
 
 
 def take_care_of_tmp(d):
@@ -47,7 +47,7 @@ class MyJudge(Judge):
         return os.path.join(STD_DIR, self.problem_id, str(id))
 
 
-class TestStringMethods(unittest.TestCase):
+class TestOJ(unittest.TestCase):
 
     @take_care_of_tmp(TEST_CASE_DIR)
     def test_run_ac(self):
