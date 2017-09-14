@@ -77,10 +77,17 @@ class Judge(metaclass=ABCMeta):
             results = (COMPILE_ERROR, self.get_compile_err_msg())
         return results
 
+    def try_decode(self, data):
+        try:
+            s = data.decode("utf-8")
+        except:
+            s= ""
+        return s
+
     def get_compile_err_msg(self):
         if os.path.exists(self.err_log):
             with open(self.err_log, "rb") as f:
-                err_msg =  f.read(MAX_ERROR_MSG_LENGTH)
+                err_msg =  self.try_decode(f.read(MAX_ERROR_MSG_LENGTH))
         else:
             err_msg = ""
         return err_msg
