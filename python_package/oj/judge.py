@@ -133,10 +133,13 @@ class Judge(metaclass=ABCMeta):
             raise NeedRejudgeError("Other Reasons")
 
         if final_result == TASK_ALL_NORMAL:
-            std_answer = self.get_std_answer_by_id(id)
-            if self.check_answer(std_answer, sample_output):
-                return (ACCEPTED, time_used, mem_used)
-            else:
+            try:
+                std_answer = self.get_std_answer_by_id(id)
+                if self.check_answer(std_answer, sample_output):
+                    return (ACCEPTED, time_used, mem_used)
+                else:
+                    return (WRONG_ANSWER, 0, 0)
+            except:
                 return (WRONG_ANSWER, 0, 0)
         else:
             status = TASK_STATUS.get(final_result, -1)
