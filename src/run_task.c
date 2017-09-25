@@ -59,8 +59,9 @@ void run_task(char* exe_file,
         set_file_size_limit(MAX_FILE_SIZE_LIMIT);
         set_virtual_mem_limit(MAX_VIRTUAL_MEM_LIMIT);
 
-        freopen(input_file, "r", stdin) ;
-        freopen(output_file, "w", stdout) ;
+        freopen(input_file, "r", stdin);
+        freopen(output_file, "w", stdout);
+	freopen("/dev/null", "w", stderr);
 
         char *args[] = {exe_file, NULL};
 
