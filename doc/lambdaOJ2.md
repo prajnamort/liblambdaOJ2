@@ -68,7 +68,7 @@ c89 | `gcc -std=c89 -static -O2 -w -lm -o output` | `C89`
 c99 | `gcc -std=c99 -static -O2 -w -lm -o output` | `C99`
 c11 | `gcc -std=c11 -static -O2 -w -lm -o output` | `C11`
 c++03| `g++ -std=c++03 -static -O2 -w -lm -o output` | `CPP03`
-c++11| `g++ -std=c++03 -static -O2 -w -lm -o output` | `CPP11`
+c++11| `g++ -std=c++11 -static -O2 -w -lm -o output` | `CPP11`
 
 final_result(macros in `run_task.h`) | Comments
 -------------|----------------------------------------------
